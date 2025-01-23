@@ -11,7 +11,7 @@ import SwiftUI
 struct FarmrlyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WelcomeView()  // Now the initial screen
         }
     }
 }
