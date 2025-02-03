@@ -23,9 +23,9 @@ struct RegistrationView: View {
 
             Button(action: {
                 if authViewModel.register(username: username, password: password) {
-                    print("Registration Successful")
+                    print("✅ Registration Successful")
                 } else {
-                    print("Registration Failed")
+                    print("❌ Registration Failed")
                 }
             }) {
                 Text("Register")

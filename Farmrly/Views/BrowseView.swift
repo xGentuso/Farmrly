@@ -15,11 +15,10 @@ struct BrowseView: View {
     private let categories = [
         Category(name: "Fruits", icon: "applelogo"),
         Category(name: "Vegetables", icon: "leaf.fill"),
-        Category(name: "Dairy", icon: "drop.fill"),       // Use a suitable symbol for dairy
+        Category(name: "Dairy", icon: "drop.fill"),
         Category(name: "Baked Goods", icon: "cup.and.saucer.fill")
     ]
     
-    @State private var selectedCategory: Category? = nil
     @State private var searchText: String = ""
     
     // Define two flexible columns for a grid layout
@@ -35,13 +34,11 @@ struct BrowseView: View {
                 SearchBar(text: $searchText)
                     .padding(.horizontal)
                 
-                // Horizontal list of categories
+                // Horizontal list of categories with NavigationLink
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(categories) { category in
-                            Button(action: {
-                                selectedCategory = category
-                            }) {
+                            NavigationLink(destination: CategoryView(categoryName: category.name)) {
                                 VStack {
                                     Image(systemName: category.icon)
                                         .resizable()
@@ -63,37 +60,14 @@ struct BrowseView: View {
                 }
                 .padding(.vertical, 10)
                 
-                // Display a grid of items if a category is selected
-                if let category = selectedCategory {
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(filteredItems(for: category)) { item in
-                                NavigationLink(destination: DetailView(farmItem: item)) {
-                                    ItemCardView(farmItem: item)
-                                }
-                            }
-                        }
-                        .padding()
-                    }
-                    .navigationTitle(selectedCategory?.name ?? "Browse")
-                } else {
-                    Spacer()
-                    Text("Select a category to view items")
-                        .foregroundColor(.secondary)
-                        .font(.title2)
-                    Spacer()
-                }
+                Spacer()
+                Text("Select a category to view items")
+                    .foregroundColor(.secondary)
+                    .font(.title2)
+                Spacer()
             }
             .navigationTitle("Browse")
             .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-    
-    // Helper function to filter items by category and search text
-    private func filteredItems(for category: Category) -> [FarmItem] {
-        SampleData.farmItems.filter { item in
-            item.category == category.name &&
-            (searchText.isEmpty || item.name.lowercased().contains(searchText.lowercased()))
         }
     }
 }

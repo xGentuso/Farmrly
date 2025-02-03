@@ -6,8 +6,13 @@ struct FarmrlyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainTabView(selectedTab: .constant(0))
-                .environmentObject(authViewModel) // ✅ Inject here too
+            if authViewModel.isLoggedIn {
+                MainTabView(selectedTab: .constant(0))
+                    .environmentObject(authViewModel)
+            } else {
+                LoginView()
+                    .environmentObject(authViewModel)
+            }
         }
     }
 }
