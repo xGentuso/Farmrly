@@ -28,6 +28,9 @@ struct CategoryCardView: View {
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 }
-#Preview {
-    CategoryCardView(categoryName: "Vegetables")
+
+struct CategoryCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        CategoryCardView(categoryName: "Vegetables")
+    }
 }

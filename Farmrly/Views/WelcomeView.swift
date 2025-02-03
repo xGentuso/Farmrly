@@ -1,30 +1,25 @@
-//
-//  WelcomeView.swift
-//  Farmrly
-//
-//  Created by ryan mota on 2025-01-23.
-//
-
 import SwiftUI
 
 struct WelcomeView: View {
+    @State private var isActive: Bool = false
+    @State private var selectedTab: Int = 0
+
     var body: some View {
-        NavigationView {
+        if isActive {
+            MainTabView(selectedTab: $selectedTab) // Show MainTabView after "Get Started"
+        } else {
             ZStack {
-                // Background color (could be replaced with an image or gradient)
                 Color(.systemBackground)
                     .ignoresSafeArea()
                 
                 VStack(spacing: 20) {
                     Spacer()
                     
-                    // Title
                     Text("Welcome to Farmrly")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
                     
-                    // Subtitle / Description
                     Text("Discover fresh, locally sourced produce and artisanal goods right at your doorstep.")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
@@ -33,8 +28,11 @@ struct WelcomeView: View {
                     
                     Spacer()
                     
-                    // "Get Started" Button
-                    NavigationLink(destination: HomeView()) {
+                    Button(action: {
+                        withAnimation {
+                            isActive = true // Activate MainTabView when tapped
+                        }
+                    }) {
                         Text("Get Started")
                             .foregroundColor(.white)
                             .font(.headline)
@@ -48,8 +46,6 @@ struct WelcomeView: View {
                     Spacer()
                 }
             }
-            .navigationBarTitle("") // Empty title
-            .navigationBarHidden(true)
         }
     }
 }

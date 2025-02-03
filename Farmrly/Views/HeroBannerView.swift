@@ -42,6 +42,9 @@ struct HeroBannerView: View {
         .padding(.horizontal)
     }
 }
-#Preview {
-    HeroBannerView()
+
+struct HeroBannerView_Previews: PreviewProvider {
+    static var previews: some View {
+        HeroBannerView()
+    }
 }

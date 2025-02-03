@@ -1,17 +1,13 @@
-//
-//  FarmrlyApp.swift
-//  Farmrly
-//
-//  Created by ryan mota on 2025-01-23.
-//
-
 import SwiftUI
 
 @main
 struct FarmrlyApp: App {
+    @StateObject private var authViewModel = AuthViewModel()
+
     var body: some Scene {
         WindowGroup {
-            WelcomeView()  // Now the initial screen
+            MainTabView(selectedTab: .constant(0))
+                .environmentObject(authViewModel) // ✅ Inject here too
         }
     }
 }
